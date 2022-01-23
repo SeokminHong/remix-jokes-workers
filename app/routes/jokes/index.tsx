@@ -1,4 +1,5 @@
 export default function JokesIndexRoute() {
+  console.log("Hello");
   return (
     <div>
       <p>Here's a random joke:</p>

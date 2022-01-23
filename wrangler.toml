@@ -6,6 +6,10 @@ account_id = ""
 route = ""
 workers_dev = true
 
+kv_namespaces = [ 
+  { binding = "REMIX_JOKE", id = "e1076e1120f945d184898c67de69758a" }
+]
+
 [site]
 bucket = "./public"
 entry-point = "."
