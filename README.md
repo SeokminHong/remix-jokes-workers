@@ -2,6 +2,20 @@
 
 https://remix.run/docs/en/v1/tutorials/jokes
 
+## TODO
+
+- [x] Add routes
+- [x] Add styles
+- [x] Setup a KV storage
+- [x] Implement actions
+- [ ] Authentication
+- [ ] Error handling
+- [ ] SEO
+- [ ] Resource routes
+- [ ] Add scripts
+- [ ] Optimistic UI
+- [ ] Deploy
+
 ## Development
 
 You will be running two processes during development:
