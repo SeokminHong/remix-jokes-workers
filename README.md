@@ -1,6 +1,6 @@
-# Welcome to Remix!
+# Jokes App for Cloudflare Workers
 
-- [Remix Docs](https://remix.run/docs)
+https://remix.run/docs/en/v1/tutorials/jokes
 
 ## Development
 
