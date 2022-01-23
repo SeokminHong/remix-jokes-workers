@@ -1,5 +1,5 @@
-import { Outlet, Link } from "remix";
-import type { LinksFunction } from "remix";
+import { LinksFunction, LoaderFunction } from "remix";
+import { Link, Outlet, useLoaderData } from "remix";
 import stylesUrl from "../styles/jokes.css";
 
 export const links: LinksFunction = () => {
@@ -11,7 +11,21 @@ export const links: LinksFunction = () => {
   ];
 };
 
+type LoaderData = {
+  jokeListItems: Array<string>;
+};
+
+export const loader: LoaderFunction = async () => {
+  const { keys } = await REMIX_JOKE.list({ limit: 5 });
+  const data: LoaderData = {
+    jokeListItems: keys.map(({ name }) => name),
+  };
+  return data;
+};
+
 export default function JokesRoute() {
+  const data = useLoaderData<LoaderData>();
+
   return (
     <div className="jokes-layout">
       <header className="jokes-header">
@@ -30,9 +44,11 @@ export default function JokesRoute() {
             <Link to=".">Get a random joke</Link>
             <p>Here are a few more jokes to check out:</p>
             <ul>
-              <li>
-                <Link to="some-joke-id">Hippo</Link>
-              </li>
+              {data.jokeListItems.map((joke) => (
+                <li key={joke}>
+                  <Link to={joke}>{joke}</Link>
+                </li>
+              ))}
             </ul>
             <Link to="new" className="button">
               Add your own

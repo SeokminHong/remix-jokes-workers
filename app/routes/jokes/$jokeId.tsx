@@ -2,7 +2,7 @@ import type { LoaderFunction } from "remix";
 import { Link, useLoaderData } from "remix";
 import type { Joke } from "~/types";
 
-type LoaderData = { joke: Joke } | null;
+type LoaderData = { joke: Joke; name: string } | null;
 
 export const loader: LoaderFunction = async ({ params }) => {
   if (typeof params.jokeId === "undefined") {
@@ -12,18 +12,17 @@ export const loader: LoaderFunction = async ({ params }) => {
   if (joke === null) {
     return null;
   }
-  return { joke };
+  return { joke, name: params.jokeId };
 };
 
 export default function JokeRoute() {
   const data = useLoaderData<LoaderData>();
-  console.log(data);
 
   return data ? (
     <div>
       <p>Here's your hilarious joke:</p>
       <p>{data.joke.content}</p>
-      <Link to=".">{data.joke.name} Permalink</Link>
+      <Link to=".">{data.name} Permalink</Link>
     </div>
   ) : (
     <div>Cannot find a joke</div>
