@@ -9,7 +9,7 @@ https://remix.run/docs/en/v1/tutorials/jokes
 - [x] Setup a KV storage
 - [x] Implement actions
 - [x] Authentication
-- [ ] Error handling
+- [x] Error handling
 - [ ] SEO
 - [ ] Resource routes
 - [ ] Add scripts
