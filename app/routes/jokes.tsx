@@ -1,5 +1,5 @@
-import { LinksFunction, LoaderFunction } from "remix";
-import { Link, Outlet, useLoaderData } from "remix";
+import type { LinksFunction, LoaderFunction } from "remix";
+import { Link, Outlet, useLoaderData, Form } from "remix";
 import { getUser } from "~/utils/session.server";
 import type { User } from "~/schema";
 import stylesUrl from "../styles/jokes.css";
@@ -36,7 +36,12 @@ export default function JokesRoute() {
       <header className="jokes-header">
         <div className="container">
           <h1 className="home-link">
-            <Link to="/" title="Remix Jokes" aria-label="Remix Jokes">
+            <Link
+              prefetch="intent"
+              to="/"
+              title="Remix Jokes"
+              aria-label="Remix Jokes"
+            >
               <span className="logo">🤪</span>
               <span className="logo-medium">J🤪KES</span>
             </Link>
@@ -44,30 +49,36 @@ export default function JokesRoute() {
           {data.user ? (
             <div className="user-info">
               <span>{`Hi ${data.user.username}`}</span>
-              <form action="/logout" method="post">
+              <Form action="/logout" method="post">
                 <button type="submit" className="button">
                   Logout
                 </button>
-              </form>
+              </Form>
             </div>
           ) : (
-            <Link to="/login">Login</Link>
+            <Link prefetch="intent" to="/login">
+              Login
+            </Link>
           )}
         </div>
       </header>
       <main className="jokes-main">
         <div className="container">
           <div className="jokes-list">
-            <Link to=".">Get a random joke</Link>
+            <Link prefetch="intent" to=".">
+              Get a random joke
+            </Link>
             <p>Here are a few more jokes to check out:</p>
             <ul>
               {data.jokeListItems.map((joke) => (
                 <li key={joke}>
-                  <Link to={joke}>{joke}</Link>
+                  <Link prefetch="intent" to={joke}>
+                    {joke}
+                  </Link>
                 </li>
               ))}
             </ul>
-            <Link to="new" className="button">
+            <Link prefetch="intent" to="new" className="button">
               Add your own
             </Link>
           </div>

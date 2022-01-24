@@ -11,8 +11,8 @@ https://remix.run/docs/en/v1/tutorials/jokes
 - [x] Authentication
 - [x] Error handling
 - [x] SEO
-- [ ] Resource routes
-- [ ] Add scripts
+- [x] Resource routes
+- [x] Add scripts
 - [ ] Optimistic UI
 - [ ] Deploy
 
