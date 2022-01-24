@@ -1,9 +1,26 @@
-import type { ActionFunction, LoaderFunction } from "remix";
+import type { ActionFunction, LoaderFunction, MetaFunction } from "remix";
 import { Link, useLoaderData, useCatch, useParams, redirect } from "remix";
 import type { Joke } from "~/schema";
 import { getUserId, requireUserId } from "~/utils/session.server";
 
-type LoaderData = { joke: Joke; name: string; isOwner: boolean };
+export const meta: MetaFunction = ({
+  data,
+}: {
+  data: LoaderData | undefined;
+}) => {
+  if (!data) {
+    return {
+      title: "No joke",
+      description: "No joke found",
+    };
+  }
+  return {
+    title: `"${data.joke.name}" joke`,
+    description: `Enjoy the "${data.joke.name}" joke and much more`,
+  };
+};
+
+type LoaderData = { joke: Joke; isOwner: boolean };
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   if (typeof params.jokeId === "undefined") {
@@ -52,7 +69,7 @@ export default function JokeRoute() {
     <div>
       <p>Here's your hilarious joke:</p>
       <p>{data.joke.content}</p>
-      <Link to=".">{data.name} Permalink</Link>
+      <Link to=".">{data.joke.name} Permalink</Link>
       {data.isOwner ? (
         <form method="post">
           <input type="hidden" name="_method" value="delete" />

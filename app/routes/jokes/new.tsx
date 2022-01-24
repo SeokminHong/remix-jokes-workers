@@ -61,6 +61,7 @@ export const action: ActionFunction = async ({ request }) => {
   await REMIX_JOKE.put(
     name,
     JSON.stringify({
+      name,
       content,
       createdAt: Date.now(),
       updatedAt: Date.now(),

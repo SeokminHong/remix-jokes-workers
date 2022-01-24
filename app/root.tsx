@@ -33,7 +33,17 @@ export const links: LinksFunction = () => {
 };
 
 export const meta: MetaFunction = () => {
-  return { title: "New Remix App" };
+  const description = `Learn Remix and laugh at the same time!`;
+  return {
+    description,
+    keywords: "Remix,jokes",
+    "twitter:image": "https://remix-jokes.lol/social.png",
+    "twitter:card": "summary_large_image",
+    "twitter:creator": "@remix_run",
+    "twitter:site": "@remix_run",
+    "twitter:title": "Remix Jokes",
+    "twitter:description": description,
+  };
 };
 
 function Document({

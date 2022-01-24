@@ -1,4 +1,5 @@
 export type Joke = {
+  name: string;
   createdAt: Date;
   updatedAt: Date;
   content: string;
