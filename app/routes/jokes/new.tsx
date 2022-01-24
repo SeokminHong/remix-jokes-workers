@@ -1,5 +1,6 @@
 import type { ActionFunction } from "remix";
 import { useActionData, redirect, json } from "remix";
+import { requireUserId } from "~/utils/session.server";
 
 function validateJokeContent(content: string) {
   if (content.length < 10) {
@@ -28,6 +29,7 @@ type ActionData = {
 const badRequest = (data: ActionData) => json(data, { status: 400 });
 
 export const action: ActionFunction = async ({ request }) => {
+  const userId = await requireUserId(request);
   const form = await request.formData();
   const name = form.get("name");
   const content = form.get("content");
@@ -50,7 +52,12 @@ export const action: ActionFunction = async ({ request }) => {
 
   await REMIX_JOKE.put(
     name,
-    JSON.stringify({ content, createdAt: Date.now(), updatedAt: Date.now() })
+    JSON.stringify({
+      content,
+      createdAt: Date.now(),
+      updatedAt: Date.now(),
+      jokesterId: userId,
+    })
   );
   return redirect(`/jokes/${name}`);
 };
