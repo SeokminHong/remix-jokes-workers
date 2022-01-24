@@ -13,8 +13,8 @@ https://remix.run/docs/en/v1/tutorials/jokes
 - [x] SEO
 - [x] Resource routes
 - [x] Add scripts
-- [ ] Optimistic UI
-- [ ] Deploy
+- [x] Optimistic UI
+- [x] Deploy
 
 ## Development
 
