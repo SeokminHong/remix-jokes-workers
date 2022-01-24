@@ -8,7 +8,7 @@ workers_dev = true
 
 kv_namespaces = [ 
   { binding = "REMIX_JOKE", id = "e1076e1120f945d184898c67de69758a" },
-  { binding = "REMIX_JOKE_USER" }
+  { binding = "REMIX_JOKE_USER", id = "b9aa11dfa8f54807bc4d5aa141561e10" }
 ]
 
 [site]
