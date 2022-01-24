@@ -8,7 +8,7 @@ https://remix.run/docs/en/v1/tutorials/jokes
 - [x] Add styles
 - [x] Setup a KV storage
 - [x] Implement actions
-- [ ] Authentication
+- [x] Authentication
 - [ ] Error handling
 - [ ] SEO
 - [ ] Resource routes
