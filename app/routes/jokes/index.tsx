@@ -1,6 +1,6 @@
 import type { LoaderFunction } from "remix";
 import { Link, useLoaderData } from "remix";
-import type { Joke } from "~/types";
+import type { Joke } from "~/schema";
 
 type LoaderData = { randomJoke: Joke; name: string } | null;
 
