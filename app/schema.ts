@@ -7,6 +7,7 @@ export type Joke = {
 };
 
 export type User = {
+  username: string;
   jokes: Joke[];
   passwordHash: string;
   createdAt: Date;

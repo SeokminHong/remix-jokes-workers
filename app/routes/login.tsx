@@ -72,7 +72,7 @@ export const action: ActionFunction = async ({ request }) => {
       return createUserSession(username, redirectTo);
     }
     case "register": {
-      const user = (await REMIX_JOKE.get(username, "json")) as User | null;
+      const user = (await REMIX_JOKE_USER.get(username, "json")) as User | null;
       if (user) {
         return badRequest({
           fields,

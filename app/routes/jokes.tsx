@@ -1,5 +1,7 @@
 import { LinksFunction, LoaderFunction } from "remix";
 import { Link, Outlet, useLoaderData } from "remix";
+import { getUser } from "~/utils/session.server";
+import type { User } from "~/schema";
 import stylesUrl from "../styles/jokes.css";
 
 export const links: LinksFunction = () => {
@@ -12,13 +14,16 @@ export const links: LinksFunction = () => {
 };
 
 type LoaderData = {
+  user: User | null;
   jokeListItems: Array<string>;
 };
 
-export const loader: LoaderFunction = async () => {
+export const loader: LoaderFunction = async ({ request }) => {
   const { keys } = await REMIX_JOKE.list({ limit: 5 });
+  const user = await getUser(request);
   const data: LoaderData = {
     jokeListItems: keys.map(({ name }) => name),
+    user,
   };
   return data;
 };
@@ -36,6 +41,18 @@ export default function JokesRoute() {
               <span className="logo-medium">J🤪KES</span>
             </Link>
           </h1>
+          {data.user ? (
+            <div className="user-info">
+              <span>{`Hi ${data.user.username}`}</span>
+              <form action="/logout" method="post">
+                <button type="submit" className="button">
+                  Logout
+                </button>
+              </form>
+            </div>
+          ) : (
+            <Link to="/login">Login</Link>
+          )}
         </div>
       </header>
       <main className="jokes-main">

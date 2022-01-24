@@ -9,9 +9,10 @@ type LoginForm = {
 
 export async function register({ username, password }: LoginForm) {
   const passwordHash = await bcrypt.hash(password, 10);
-  await REMIX_JOKE.put(
+  await REMIX_JOKE_USER.put(
     username,
     JSON.stringify({
+      username,
       jokes: [],
       passwordHash,
       createdAt: Date.now(),
@@ -21,7 +22,7 @@ export async function register({ username, password }: LoginForm) {
 }
 
 export async function login({ username, password }: LoginForm) {
-  const user = (await REMIX_JOKE.get(username, "json")) as User | null;
+  const user = (await REMIX_JOKE_USER.get(username, "json")) as User | null;
   if (!user) return null;
 
   const isCorrectPassword = await bcrypt.compare(password, user.passwordHash);
@@ -72,6 +73,29 @@ export async function requireUserId(
     throw redirect(`/login?${searchParams}`);
   }
   return userId;
+}
+
+export async function getUser(request: Request) {
+  const userId = await getUserId(request);
+  if (typeof userId !== "string") {
+    return null;
+  }
+
+  try {
+    const user = (await REMIX_JOKE_USER.get(userId, "json")) as User | null;
+    return user;
+  } catch {
+    throw logout(request);
+  }
+}
+
+export async function logout(request: Request) {
+  const session = await storage.getSession(request.headers.get("Cookie"));
+  return redirect("/login", {
+    headers: {
+      "Set-Cookie": await storage.destroySession(session),
+    },
+  });
 }
 
 export async function createUserSession(userId: string, redirectTo: string) {
