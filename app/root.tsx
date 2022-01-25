@@ -12,6 +12,14 @@ import type { LinksFunction, MetaFunction } from "remix";
 import globalStylesUrl from "./styles/global.css";
 import globalMediumStylesUrl from "./styles/global-medium.css";
 import globalLargeStylesUrl from "./styles/global-large.css";
+import { SEED_JOKES, SEED_USERS } from "./schema";
+
+if (process.env.NODE_ENV === "development") {
+  SEED_JOKES.map((joke) => REMIX_JOKE.put(joke.name, JSON.stringify(joke)));
+  SEED_USERS.map((user) =>
+    REMIX_JOKE_USER.put(user.username, JSON.stringify(user))
+  );
+}
 
 export const links: LinksFunction = () => {
   return [

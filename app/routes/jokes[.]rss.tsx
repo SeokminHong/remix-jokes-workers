@@ -56,9 +56,7 @@ export const loader: LoaderFunction = async ({ request }) => {
               <description><![CDATA[A funny joke called ${escapeHtml(
                 joke.name
               )}]]></description>
-              <author><![CDATA[${escapeCdata(
-                joke.jokester.username
-              )}]]></author>
+              <author><![CDATA[${escapeCdata(joke.jokesterId)}]]></author>
               <pubDate>${joke.createdAt.toUTCString()}</pubDate>
               <link>${jokesUrl}/${joke.name}</link>
               <guid>${jokesUrl}/${joke.name}</guid>
