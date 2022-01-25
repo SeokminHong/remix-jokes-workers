@@ -4,7 +4,12 @@
 
 tutorial: https://remix.run/docs/en/v1/tutorials/jokes
 
-## TODO
+## What's different?
+
+This repository is a re-implementation of Jokes tutorial app.
+However, it uses Cloudflare Workers for backend and Workers KV for storage, instead of fly.io and Prisma/SQLite.
+
+## Tutorial
 
 - [x] Add routes
 - [x] Add styles
