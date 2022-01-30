@@ -40,7 +40,7 @@ Open up [http://127.0.0.1:8787](http://127.0.0.1:8787) and you should be ready t
 
 Use [wrangler](https://developers.cloudflare.com/workers/cli-wrangler) to build and deploy your application to Cloudflare Workers. If you don't have it yet, follow [the installation guide](https://developers.cloudflare.com/workers/cli-wrangler/install-update) to get it setup. Be sure to [authenticate the CLI](https://developers.cloudflare.com/workers/cli-wrangler/authentication) as well.
 
-If you cannot install wrangler and you are using Windows, retry it after install [Strawberry Perl](https://strawberryperl.com/).
+If you cannot install wrangler and you are using Windows because of OpenSSL issue, retry it after install [Strawberry Perl](https://strawberryperl.com/).
 
 If you don't already have an account, then [create a cloudflare account here](https://dash.cloudflare.com/sign-up) and after verifying your email address with Cloudflare, go to your dashboard and set up your free custom Cloudflare Workers subdomain.
 
