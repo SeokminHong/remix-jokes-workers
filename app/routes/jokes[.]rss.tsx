@@ -28,10 +28,7 @@ export const loader: LoaderFunction = async ({ request }) => {
   let jokes = await Promise.all(keys.map((key) => getJoke(key))).then(
     (jokes) => jokes.filter((joke) => joke !== null) as Joke[]
   );
-  jokes.sort((a, b) => {
-    console.log(a);
-    return a.createdAt.getTime() - b.createdAt.getTime();
-  });
+  jokes.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
 
   const host =
     request.headers.get("X-Forwarded-Host") ?? request.headers.get("host");
