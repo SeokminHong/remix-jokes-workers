@@ -1,6 +1,6 @@
 # Jokes App for Cloudflare Workers
 
-[Live Demo](https://remix-cloudflare-workers.seokmin.workers.dev)
+[Live Demo](https://remix-jokes.seokmin.dev)
 
 tutorial: https://remix.run/docs/en/v1/tutorials/jokes
 
