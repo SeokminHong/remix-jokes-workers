@@ -1,6 +1,6 @@
 import type { LoaderFunction } from "remix";
 import { Link, useLoaderData, useCatch } from "remix";
-import type { Joke } from "~/schema";
+import { getJoke, Joke } from "~/schema";
 
 type LoaderData = { randomJoke: Joke; name: string };
 
@@ -16,7 +16,7 @@ export const loader: LoaderFunction = async () => {
   const randIndex = Math.floor(Math.random() * keys.length);
   const name = keys[randIndex].name;
 
-  const data = (await REMIX_JOKE.get(name, "json")) as Joke | null;
+  const data = await getJoke(name);
   if (data === null) {
     throw new Response("No random joke found", {
       status: 404,

@@ -13,6 +13,21 @@ export type User = {
   updatedAt: Date;
 };
 
+export async function getJoke(jokeId: string): Promise<Joke | null> {
+  const joke = await REMIX_JOKE.get<{
+    [K in keyof Joke]: string;
+  }>(jokeId, "json");
+
+  if (!joke) {
+    return joke;
+  }
+  return {
+    ...joke,
+    createdAt: new Date(joke.createdAt),
+    updatedAt: new Date(joke.updatedAt),
+  };
+}
+
 export const SEED_USERS: User[] = [
   {
     username: "kody",

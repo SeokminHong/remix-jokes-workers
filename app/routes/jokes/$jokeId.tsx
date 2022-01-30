@@ -7,7 +7,7 @@ import {
   redirect,
   Form,
 } from "remix";
-import type { Joke } from "~/schema";
+import { getJoke, Joke } from "~/schema";
 import { JokeDisplay } from "~/components/joke";
 import { getUserId, requireUserId } from "~/utils/session.server";
 
@@ -36,7 +36,7 @@ export const loader: LoaderFunction = async ({ request, params }) => {
       status: 400,
     });
   }
-  const joke = (await REMIX_JOKE.get(params.jokeId, "json")) as Joke | null;
+  const joke = await getJoke(params.jokeId);
   if (joke === null) {
     throw new Response("What a joke! Not found.", {
       status: 404,
@@ -53,10 +53,7 @@ export const action: ActionFunction = async ({ request, params }) => {
   }
   if (form.get("_method") === "delete") {
     const userId = await requireUserId(request);
-    const joke = (await REMIX_JOKE.get(
-      params.jokeId || "",
-      "json"
-    )) as Joke | null;
+    const joke = await getJoke(params.jokeId || "");
     if (!joke) {
       throw new Response("Can't delete what does not exist", { status: 404 });
     }

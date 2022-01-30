@@ -1,5 +1,5 @@
 import type { LoaderFunction } from "remix";
-import { Joke } from "~/schema";
+import { getJoke, Joke } from "~/schema";
 
 function escapeCdata(s: string) {
   return s.replaceAll("]]>", "]]]]><![CDATA[>");
@@ -25,10 +25,13 @@ export const loader: LoaderFunction = async ({ request }) => {
   const keys = await REMIX_JOKE.list().then((jokes) =>
     jokes.keys.map(({ name }) => name)
   );
-  let jokes = await Promise.all(
-    keys.map((key) => REMIX_JOKE.get<Joke>(key, "json"))
-  ).then((jokes) => jokes.filter((joke) => joke !== null) as Joke[]);
-  jokes.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
+  let jokes = await Promise.all(keys.map((key) => getJoke(key))).then(
+    (jokes) => jokes.filter((joke) => joke !== null) as Joke[]
+  );
+  jokes.sort((a, b) => {
+    console.log(a);
+    return a.createdAt.getTime() - b.createdAt.getTime();
+  });
 
   const host =
     request.headers.get("X-Forwarded-Host") ?? request.headers.get("host");
